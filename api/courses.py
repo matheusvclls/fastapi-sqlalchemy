@@ -26,7 +26,7 @@ async def create_new_course(
 
 @router.get("/courses/{course_id}")
 async def read_course(course_id: int, db: Session = Depends(get_db)):
-    db_course = get_course(db=db, course_id=course_id)
+    db_course = await get_course(db=db, course_id=course_id)
     if db_course is None:
         raise HTTPException(status_code=404, detail="Course not found")
     return db_course
@@ -41,7 +41,7 @@ def delete_course(course_id: int, db: Session = Depends(get_db)):
 
 
 @router.patch("/courses/{course_id}", response_model=Course)
-async def update_user(course_id: int, course: CourseUpdate, db: Session = Depends(get_db)):
+async def update_course(course_id: int, course: CourseUpdate, db: Session = Depends(get_db)):
     db_course = await get_course(db=db, course_id=course_id)
     if db_course is None:
         raise HTTPException(status_code=404, detail="Course not found")
