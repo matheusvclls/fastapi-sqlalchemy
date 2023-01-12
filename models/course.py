@@ -1,14 +1,14 @@
 import enum
 
-from sqlalchemy import  Column, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from db.db_setup import Base
 from .user import User
+from .mixins import Timestamp
 
 
-
-class Course(Base):
+class Course(Timestamp, Base):
     __tablename__ = "courses"
 
     id = Column(Integer, primary_key=True, index=True)
